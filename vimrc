@@ -16,11 +16,23 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'https://github.com/shime/vim-livedown.git'
 Plugin 'https://github.com/vim-scripts/LanguageTool'
 Plugin 'https://github.com/calincru/qml.vim'
-Plugin 'https://github.com/walm/jshint.vim'
+Plugin 'https://github.com/fatih/vim-go'
+Plugin 'https://github.com/Valloric/YouCompleteMe'
+Plugin 'https://github.com/nsf/gocode'
+Plugin 'https://github.com/scrooloose/syntastic'
 
 let g:languagetool_jar='$HOME/.LanguageTool-3.0/languagetool-commandline.jar'
 let g:languagetool_lang='en'
 let g:jshintconfig='$HOME/.jshint/config.json'
+
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_args = '--fix'
+let g:syntastic_check_on_wq = 1
+let g:go_fmt_fail_silently = 1
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -127,3 +139,10 @@ nnoremap <silent> [b :bprevious<CR>
 nnoremap <silent> ]b :next<CR>
 nnoremap <silent> [B :bfirst<CR>
 nnoremap <silent> ]B :blast<CR>
+
+
+" #############################################################################
+"                                  COMMANDS
+"
+command -range=% JSON execute "<line1>,<line2>!python -m json.tool"
+
