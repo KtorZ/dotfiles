@@ -1,6 +1,21 @@
 module.exports = {
   "ecmaFeatures": {
-    "jsx": true
+    "jsx": true,
+    "arrowFunctions": true,
+    "blockBindings": true,
+    "binaryLiterals": true,
+    "defaultParams": true,
+    "destructuring": true,
+    "forOf": true,
+    "modules": true,
+    "objectLiteralComputedProperties": true,
+    "objectLiteralDuplicateProperties": true,
+    "objectLiteralShorthandMethods": true,
+    "objectLiteralShorthandProperties": true,
+    "octalLiterals": true,
+    "restParams": true,
+    "spread": true,
+    "templateStrings": true
   },
 
   "rules": {
@@ -13,7 +28,7 @@ module.exports = {
     "no-invalid-regexp": 2,
     "no-irregular-whitespace": 2,
     "no-unreachable": 2,
-    "no-unused-vars": [2, {"vars": "local", "args": "all"}],
+    "no-unused-vars": [2, {"vars": "local", "args": "after-used"}],
     "valid-typeof": 2,
     "curly": 2,
     "eqeqeq": [2, "smart"],
