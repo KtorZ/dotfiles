@@ -6,4 +6,6 @@
 	email = matthias.benkort@gmail.com
 [alias]
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-
+    rewrite = "!f() { export GIT_REWRITE_COMMIT=$1; export GIT_REWRITE_DATE=$2; git filter-branch -f --env-filter 'if [ $GIT_COMMIT = $GIT_REWRITE_COMMIT ]; then export GIT_AUTHOR_DATE=$GIT_REWRITE_DATE; export GIT_COMMITTER_DATE=$GIT_REWRITE_DATE; fi'; }; f"
+[help]
+	autocorrect = 1
