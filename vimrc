@@ -20,22 +20,39 @@ Plugin 'https://github.com/fatih/vim-go'
 Plugin 'https://github.com/Valloric/YouCompleteMe'
 Plugin 'https://github.com/nsf/gocode'
 Plugin 'https://github.com/scrooloose/syntastic'
+Plugin 'https://github.com/ElmCast/elm-vim'
+Plugin 'isRuslan/vim-es6'
 
 let g:languagetool_jar='$HOME/.LanguageTool-3.0/languagetool-commandline.jar'
+let g:syntastic_fortran_compiler_options='-I $FORTRAN_PATH -c'
+let g:syntastic_fortran_cflags='-lnetcdff'
 let g:languagetool_lang='en'
-let g:jshintconfig='$HOME/.jshint/config.json'
+
+let g:ycm_semantic_triggers = {'elm' : ['.']}
 
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_args = '--fix'
+" let g:syntastic_javascript_eslint_args = '--fix'
 let g:syntastic_check_on_wq = 1
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_warning_symbol = "⚠"
+let g:syntastic_error_symbol = "✗"
+let g:syntastic_cucumber_cucumber_args = '-q'
+let g:syntastic_ignore_files= ['.feature$']
+
 let g:go_fmt_fail_silently = 1
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+let g:elm_format_autosave = 1
+let g:elm_make_output_file = "elm.js"
+let g:elm_detailed_complete = 1
 
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+" Golang linter
+set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
+"autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+
 " To ignore plugin indent changes, instead use:
 " filetype plugin on
 "
@@ -52,13 +69,15 @@ filetype plugin indent on    " required
 "
 "
 " SHOW A VERTICAL RULER
-highlight Overlength ctermbg=red ctermfg=white guibg=#592929
+highlight Overlength ctermbg=yellow ctermfg=white guibg=#f39c12
 match Overlength /\%101v.\+/
 
 " Command for markdown preview
 autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,markdown} set filetype=markdown
 autocmd BufRead,BufNewFile *.i18n set filetype=cucumber
-autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,tex,markdown} set textwidth=95
+autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,markdown} set textwidth=95
+autocmd BufNewFile,BufRead *.{tex} set textwidth=90
+autocmd BufNewFile,BufRead *.{sass} set shiftwidth=2 tabstop=2 softtabstop=2
 
 " #############################################################################
 "                            MY PERSONAL CONFIGURATION
@@ -108,6 +127,15 @@ set lazyredraw                   " redraw only when we need to.
 set showmatch                    " highlight matching [{()}]
 set ignorecase                   " case insensitive
 
+" avoid paste when clicking on wheel
+map <MiddleMouse> <Nop>
+imap <MiddleMouse> <Nop>
+map <2-MiddleMouse> <Nop>
+imap <2-MiddleMouse> <Nop>
+map <3-MiddleMouse> <Nop>
+imap <3-MiddleMouse> <Nop>
+map <4-MiddleMouse> <Nop>
+imap <4-MiddleMouse> <Nop>
 " #############################################################################
 "                                  SEARCHING
 
@@ -146,3 +174,9 @@ nnoremap <silent> ]B :blast<CR>
 "
 command -range=% JSON execute "<line1>,<line2>!python -m json.tool"
 
+
+" #############################################################################
+"                                  NAVIGATION
+"
+set wildmode=longest,list,full
+set wildmenu

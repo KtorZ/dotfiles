@@ -122,7 +122,4 @@ function parse_git_status {
     if [[ $nocommitted -gt 0 ]]; then echo -n "+"; fi
 }
 
-PS1='\n\[\033[1;34m\]\342\226\210\342\226\210 \u @ \w\n\[\033[0;36m\]\342\226\210\342\226\210 \t\[\033[1;33m\]$(parse_git_branch)$(parse_git_status)\[\033[0;36m\] $ \[\033[0;39m\]'
-
-alias grab='grep -nr --color=auto'
-xset s off
+PS1='\n\[\033[1;96m\]\342\226\210\342\226\210 \u @ \w\n\[\033[0;36m\]\342\226\210\342\226\210\t\[\033[1;33m\]$(parse_git_branch)$(parse_git_status)\[\033[0;36m\] $ \[\033[0;39m\]'
