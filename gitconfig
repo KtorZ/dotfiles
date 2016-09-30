@@ -1,14 +1,24 @@
-[core]
-	editor = vim
-	excludesfile = /home/ktorz/.gitignore
-[user]
-	name = KtorZ
-	email = matthias.benkort@gmail.com
 [alias]
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
     rewrite = "!f() { export GIT_REWRITE_COMMIT=$1; export GIT_REWRITE_DATE=$2; git filter-branch -f --env-filter 'if [ $GIT_COMMIT = $GIT_REWRITE_COMMIT ]; then export GIT_AUTHOR_DATE=$GIT_REWRITE_DATE; export GIT_COMMITTER_DATE=$GIT_REWRITE_DATE; fi'; }; f"
     ipref = "!f() { export DEST=$(git name-rev --name-only HEAD); export PREFIX=$1; export REV="$PREFIX...$DEST"; git filter-branch -f --msg-filter 'echo \"[$PREFIX] $(cat)\"' $REV; }; f"
     prefixmerge = "!f() { git ipref $1 && git merge --no-ff $1; }; f"
     ignored = !git ls-files -v $(git rev-parse --show-toplevel) | grep '^[[:lower:]]'
+    resolve = !vim -p $(git status | grep 'both modified' | sed 's%.*:\\s*\\(.*\\.js\\)%\\1%g' | tr '\\n' ' ')
+[commit]
+    gpgsign = true
+[core]
+	editor = vim
+	excludesfile = /home/<user>/.gitignore
 [help]
-	autocorrect = 1
+    autocorrect = 1
+[merge]
+    tool = vimdiff3
+[mergetool]
+    prompt = false
+[url "git@github.com:"]
+	insteadOf = https://github.com/
+[user]
+	name = <username>
+    email = <email>
+    signingkey = <gpg-key>
