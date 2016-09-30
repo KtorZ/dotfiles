@@ -14,44 +14,40 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'https://github.com/shime/vim-livedown.git'
-Plugin 'https://github.com/vim-scripts/LanguageTool'
-Plugin 'https://github.com/calincru/qml.vim'
-Plugin 'https://github.com/fatih/vim-go'
 Plugin 'https://github.com/Valloric/YouCompleteMe'
-Plugin 'https://github.com/nsf/gocode'
+Plugin 'https://github.com/fatih/vim-go'
 Plugin 'https://github.com/scrooloose/syntastic'
 Plugin 'https://github.com/ElmCast/elm-vim'
 Plugin 'isRuslan/vim-es6'
-
-let g:languagetool_jar='$HOME/.LanguageTool-3.0/languagetool-commandline.jar'
-let g:syntastic_fortran_compiler_options='-I $FORTRAN_PATH -c'
-let g:syntastic_fortran_cflags='-lnetcdff'
-let g:languagetool_lang='en'
+Bundle 'hlissner/vim-forrestgump'
 
 let g:ycm_semantic_triggers = {'elm' : ['.']}
-
 let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_javascript_eslint_args = '--fix'
 let g:syntastic_check_on_wq = 1
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
 let g:syntastic_warning_symbol = "⚠"
 let g:syntastic_error_symbol = "✗"
-let g:syntastic_cucumber_cucumber_args = '-q'
 let g:syntastic_ignore_files= ['.feature$']
 
 let g:go_fmt_fail_silently = 1
+let g:go_fmt_command = "goimports"
+let g:syntastic_go_checkers = ['go', 'govet', 'golint']
+let g:go_list_type = "quickfix"
 
 let g:elm_format_autosave = 1
-let g:elm_make_output_file = "elm.js"
+let g:elm_make_output_file = 'elm.js'
 let g:elm_detailed_complete = 1
+
+let g:forrestgumps = { 'javascript': ['node'] }
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 " Golang linter
 set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
-"autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+
+" autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
 
 " To ignore plugin indent changes, instead use:
 " filetype plugin on
@@ -69,8 +65,8 @@ set rtp+=$GOPATH/src/github.com/golang/lint/misc/vim
 "
 "
 " SHOW A VERTICAL RULER
-highlight Overlength ctermbg=yellow ctermfg=white guibg=#f39c12
-match Overlength /\%101v.\+/
+" highlight Overlength ctermbg=Red ctermfg=Black guibg=#f39c12
+" match Overlength /\%101v.\+/
 
 " Command for markdown preview
 autocmd BufNewFile,BufRead *.{md,mdwn,mkd,mkdn,markdown} set filetype=markdown
@@ -87,7 +83,7 @@ autocmd BufNewFile,BufRead *.{sass} set shiftwidth=2 tabstop=2 softtabstop=2
 " #############################################################################
 "                                  COLOR
 "
-colorscheme badwolf              " awesome colorscheme
+colorscheme happy_hacking        " awesome colorscheme
 syntax enable                    " enable syntax processing
 "
 "
@@ -162,11 +158,15 @@ set foldmethod=indent            " fold based on indent level
 " jk is escape
 " inoremap jk <esc>
 "
+nnoremap <silent> <C-Left> :tabprevious<CR>
+nnoremap <silent> <C-Right> :tabnext<CR>
+nnoremap <silent> <C-S-Left> :tabfirst<CR>
+nnoremap <silent> <C-S-Right> :tablast<CR>
 
-nnoremap <silent> [b :bprevious<CR>
-nnoremap <silent> ]b :next<CR>
-nnoremap <silent> [B :bfirst<CR>
-nnoremap <silent> ]B :blast<CR>
+" nnoremap <silent> <D-A-Left> :bprevious<CR>
+" nnoremap <silent> <D-A-Right> :bnext<CR>
+" nnoremap <silent> <S-D-A-Left> :bfirst<CR>
+" nnoremap <silent> <S-D-A-Right> :blast<CR>
 
 
 " #############################################################################
