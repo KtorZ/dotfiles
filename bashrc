@@ -37,7 +37,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -76,26 +76,15 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
+    alias grap="grep -nr --exclude-dir node_modules"
 fi
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -108,8 +97,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-################################3
-## File used for defining $PS1
+# PS1 definition
 function parse_git_branch {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
@@ -123,3 +111,16 @@ function parse_git_status {
 }
 
 PS1='\n\[\033[1;96m\]\342\226\210\342\226\210 \u @ \w\n\[\033[0;36m\]\342\226\210\342\226\210\t\[\033[1;33m\]$(parse_git_branch)$(parse_git_status)\[\033[0;36m\] $ \[\033[0;39m\]'
+
+# Exports
+export NVM_DIR="/home/<user>/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+export NODE_PATH=$(npm config get prefix)/lib/node_modules:.
+
+export ROOT_GOPATH=/usr/local/lib/go
+export CUSTOM_GOPATH=/home/<user>/Documents/<whatever>
+
+export PATH=$PATH:./node_modules/.bin:../node_modules/.bin:/usr/local/go/bin
+export PATH=$PATH:$ROOT_GOPATH/bin:$CUSTOM_GOPATH/bin
+export GOPATH=$ROOT_GOPATH:$CUSTOM_GOPATH
