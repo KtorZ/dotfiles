@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+export NETWORK=${NETWORK:-testnet}
+
+if [ -z $1 ]; then
+  stack test cardano-wallet:exe:cardano-wallet-launcher cardano-wallet:exe:cardano-wallet cardano-wallet:integration --haddock --no-haddock-deps --fast --file-watch
+else
+  stack test cardano-wallet:exe:cardano-wallet-launcher cardano-wallet:exe:cardano-wallet cardano-wallet:integration --haddock --no-haddock-deps --fast --file-watch --test-arguments "--match $1"
+fi

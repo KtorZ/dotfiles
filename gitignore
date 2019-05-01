@@ -1,5 +1,9 @@
+### OSX ###
 .DS_Store
 Thumbs.db
+
+### Git ###
+*.orig
 
 ### Vim ###
 [._]*.s[a-w][a-z]
@@ -8,3 +12,9 @@ Thumbs.db
 Session.vim
 .netrwhist
 *~
+
+### Tags ###
+tags
+
+### Worktrees ###
+.worktree

@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+export NETWORK=${NETWORK:-testnet}
+stack bench --haddock --no-haddock-deps --fast

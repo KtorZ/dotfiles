@@ -1,24 +1,44 @@
 [alias]
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
-    rewrite = "!f() { export GIT_REWRITE_COMMIT=$1; export GIT_REWRITE_DATE=$2; git filter-branch -f --env-filter 'if [ $GIT_COMMIT = $GIT_REWRITE_COMMIT ]; then export GIT_AUTHOR_DATE=$GIT_REWRITE_DATE; export GIT_COMMITTER_DATE=$GIT_REWRITE_DATE; fi'; }; f"
-    ipref = "!f() { export DEST=$(git name-rev --name-only HEAD); export PREFIX=$1; export REV="$PREFIX...$DEST"; git filter-branch -f --msg-filter 'echo \"[$PREFIX] $(cat)\"' $REV; }; f"
-    prefixmerge = "!f() { git ipref $1 && git merge --no-ff $1; }; f"
-    ignored = !git ls-files -v $(git rev-parse --show-toplevel) | grep '^[[:lower:]]'
-    resolve = !vim -p $(git status | grep 'both modified' | sed 's%.*:\\s*\\(.*\\.js\\)%\\1%g' | tr '\\n' ' ')
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  ignored = !git ls-files -v $(git rev-parse --show-toplevel) | grep '^[[:lower:]]'
+  hours = !git log --committer='KtorZ' --pretty="%cd" | cut -d' ' -f4 | cut -d: -f1 | sort -n | uniq -c
+  hasktags = !hasktags -c $(find . -type f -name '*.hs' ! -path '*.stack-work*' ! -path '*.worktree*')
+  root = rev-parse --show-toplevel
+
 [commit]
-    gpgsign = true
+  gpgsign = true # Always sign commits with GPG key
+
+[gpg]
+  program = gpg2
+
 [core]
-	editor = vim
-	excludesfile = /home/<user>/.gitignore
+  editor = vim
+  excludesfile = /home/ktorz/.gitignore
+
+[rerere] # Reuse Reorderd Resolution:
+  enabled = true  # Re-apply same conflicts resolutions to successive commits
+
 [help]
-    autocorrect = 1
+  autocorrect = 1 # Automatically infer commands from typos (mostly safe)
+
 [merge]
-    tool = vimdiff3
+  tool = vimdiff # Use vimdiff with 'git mergetool'
+  conflictstyle=diff3 # 3-way diff with Local vs Parent vs Remote
+
 [mergetool]
-    prompt = false
+  prompt = false # Don’t prompt before each invocation of the merge resolution program
+
+[pull]
+  ff = only # Only pull if merge can be done fast-forwardly
+
+[push]
+  default = nothing # Make sure we specify to which remote and branch we should push
+  # pushOption = force-with-lease=origin # Force push only if the remote is what we expect it to be
+
 [url "git@github.com:"]
-	insteadOf = https://github.com/
+  insteadOf = https://github.com/ # Rewrite HTTPS url to always use SSH
+
 [user]
-	name = <username>
-    email = <email>
-    signingkey = <gpg-key>
+  name = KtorZ
+  email = matthias.benkort@gmail.com
+  signingkey = F77F4277

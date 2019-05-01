@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+export NETWORK=${NETWORK:-mainnet}
+
+if [ -z $1 ]; then
+  stack test cardano-wallet:unit --haddock --no-haddock-deps --fast --file-watch
+else
+  stack test cardano-wallet:unit --haddock --no-haddock-deps --fast --file-watch --test-arguments "--match $1"
+fi

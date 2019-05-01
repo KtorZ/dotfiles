@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+stack test --no-run-tests --bench --no-run-benchmarks --haddock --no-haddock-deps --fast --file-watch
