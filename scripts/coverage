@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-export NETWORK=testnet
-
-if [ -z $1 ]; then
-  stack test cardano-wallet --coverage --fast --work-dir .stack-work-coverage
-else
-  stack test cardano-wallet --coverage --fast --work-dir .stack-work-coverage --test-arguments "--match $1"
-fi

@@ -1,4 +1,5 @@
 :set prompt "λ>"
+
 :set -XDataKinds
 :set -XDeriveDataTypeable
 :set -XDeriveGeneric
@@ -9,6 +10,7 @@
 :set -XTypeFamilies
 :set -XTypeOperators
 :set -XTypeApplications
+
 :set -Wall
 :set -fdefer-type-errors
 
