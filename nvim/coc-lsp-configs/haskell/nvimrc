@@ -1,14 +1,17 @@
 call coc#config('languageserver', {
   \ 'haskell': {
-  \   "command": "haskell-language-server",
+  \   "command": "haskell-language-server-wrapper",
   \   "args": ["--lsp"],
   \   "trace.server": "verbose",
-  \   "rootPatterns": ["*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml"],
+  \   "rootPatterns": ["*.cabal", "cabal.project", "hie.yaml"],
   \   "filetypes": ["haskell"],
   \   "initializationOptions": {},
   \   "settings": {
   \     "haskell": {
-  \       "formattingProvider": "stylish-haskell"
+  \       "formattingProvider": "fourmolu",
+  \       "plugin": {
+  \         "stan": { "globalOn": v:false }
+  \       }
   \     }
   \   }
   \ }

@@ -1,0 +1,11 @@
+call coc#config('languageserver', {
+  \ 'aiken': {
+  \   "command": "aiken",
+  \   "args": ["lsp"],
+  \   "trace.server": "verbose",
+  \   "rootPatterns": ["aiken.toml"],
+  \   "filetypes": ["aiken"],
+  \   "initializationOptions": {},
+  \   "settings": {}
+  \ }
+  \})

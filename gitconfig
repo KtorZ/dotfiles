@@ -2,7 +2,7 @@
   lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
   ignored = !git ls-files -v $(git rev-parse --show-toplevel) | grep '^[[:lower:]]'
   hours = !git log --committer='KtorZ' --pretty="%cd" | cut -d' ' -f4 | cut -d: -f1 | sort -n | uniq -c
-  hasktags = !hasktags -c $(find . -type f -name '*.hs' ! -path '*.stack-work*' ! -path '*.worktree*' ! -path '*dist-newstyle*')
+  hasktags = !hasktags -c $(find . -type f -name '*.hs' ! -path '*.stack-work*' ! -path '*dist-newstyle*')
   root = rev-parse --show-toplevel
   changelog = !git log --reverse --pretty='format:- :round_pushpin: **%s**%n  %b' $(git merge-base HEAD origin/master)..HEAD
   branch-prune = !git branch --merged | grep -v $(git rev-parse --abbrev-ref HEAD) | xargs git branch -d
@@ -11,9 +11,13 @@
 [commit]
   gpgsign = true # Always sign commits with GPG key
 
+[credential]
+  helper = osxkeychain
+
 [core]
   editor = vim
-  excludesfile = /home/ktorz/.gitignore
+  excludesfile = $HOME/.gitignore
+  pager = nvim -R +:AnsiEsc
 
 [rerere] # Reuse Reorderd Resolution:
   enabled = true  # Re-apply same conflicts resolutions to successive commits

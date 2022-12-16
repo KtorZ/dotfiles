@@ -1,0 +1,16 @@
+{ "suggest":
+    { "disableKind": true
+    , "snippetsSupport": false
+    }
+, "diagnostic":
+    { "virtualText": true
+    , "virtualTextCurrentLineOnly": false
+    , "virtualTextLine": 1
+    , "virtualTextPrefix": " -- "
+    }
+, "list.height": 10
+, "codeLens.enable": true
+, "coc.preferences.enableMarkdown": true
+, "coc.preferences.jumpCommand": "tab drop"
+, "coc.preferences.formatOnSaveFiletypes": ["haskell", "rust", "elm", "aiken"]
+}
